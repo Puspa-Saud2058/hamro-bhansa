@@ -2,13 +2,14 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import Link from 'next/link';
 
-const SignupSchema = Yup.object().shape({
-  firstName: Yup.string()
+const LoginSchema = Yup.object().shape({
+  email: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
-  lastName: Yup.string()
+ password: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
@@ -17,15 +18,13 @@ const SignupSchema = Yup.object().shape({
 
 export const home = () => (
   <div>
-    <h1>Signup</h1>
+       <h1>Log In</h1>
     <Formik
       initialValues={{
-        firstName: '',
-        lastName: '',
         email: '',
         password:'',
       }}
-      validationSchema={SignupSchema}
+      validationSchema={LoginSchema}
       onSubmit={values => {
         // same shape as initial values
         console.log(values);
@@ -33,21 +32,19 @@ export const home = () => (
     >
       {({ errors, touched }) => (
         <Form>
-          <Field name="firstName" placeholder="firstname"/>
-          {errors.firstName && touched.firstName ? (
-            <div>{errors.firstName}</div>
+          <Field name="email" placeholder="Email/Username"/>
+          {errors.email && touched.email ? (
+            <div>{errors.email}</div>
           ) : null}
-          <Field name="lastName" placeholder="lastname"/>
-          {errors.lastName && touched.lastName ? (
-            <div>{errors.lastName}</div>
-          ) : null}
-          <Field name="email" type="email" placeholder="email" />
-          {errors.email && touched.email ? <div>{errors.email}</div> : null}
-          <Field name="passsword" type="password" placeholder="password"/>
+          <br/>
+          <Field name="password" placeholder="Password"/>
           {errors.password && touched.password ? (
             <div>{errors.password}</div>
           ) : null}
-          <button type="submit">Join now</button>
+          <br/>
+          <button type="submit">Login</button>
+          <br/>
+          Don't have account? <Link href="/register">SignUp</Link>
         </Form>
       )}
     </Formik>
