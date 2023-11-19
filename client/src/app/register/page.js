@@ -4,7 +4,9 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from 'next/link'
+import { message } from 'antd';
+
 const SignupSchema = Yup.object().shape({
     fullname: Yup.string()
     .min(2, 'Too Short!')
@@ -24,7 +26,23 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
 });
 
- const Home = () => (
+ const Home = () => {
+  const [messageApi,contextHolder]=message.useMessage();
+const handleRegister = async(values) => {
+  const res = await fetch('http://localhost:4000/register', {
+      method:'POST', 
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    })
+    const data = await res.json()
+      messageApi.open({
+        type: res.status == 200 ? 'success': 'error',
+        content: data.msg,
+      });
+    console.log(res)
+  }
+  return(
+
   <div>
     <Image
       src="/hh.jpeg"
@@ -43,8 +61,8 @@ const SignupSchema = Yup.object().shape({
       }}
       validationSchema={SignupSchema}
       onSubmit={values => {
-        // same shape as initial values
-        console.log(values);
+        handleRegister(values)
+        
       }}
     >
       {({ errors, touched }) => (
@@ -75,7 +93,8 @@ const SignupSchema = Yup.object().shape({
         </Form>
       )}
     </Formik>
+    {contextHolder}
   </div>
-);
+)};
 
 export default Home
