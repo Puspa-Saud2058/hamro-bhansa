@@ -2,6 +2,7 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import { message } from 'antd';
 import Link from 'next/link';
 
 const LoginSchema = Yup.object().shape({
@@ -16,8 +17,27 @@ const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
 });
 
-export const home = () => (
+ const home = () => {
+  const [messageApi,contextHolder]=message.useMessage();
+  const handleLogin = async(values) => {
+    const res = await fetch('http://localhost:4000/login', {
+        method:'POST', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values)
+      })
+      const data = await res.json()
+        messageApi.open({
+          type: res.status == 200 ? 'success': 'error',
+          content: data.msg,
+        });
+      console.log(res)
+    }
+  
+  
+  return(
+
   <div>
+    {contextHolder}  
        <h1>Log In</h1>
     <Formik
       initialValues={{
@@ -26,8 +46,7 @@ export const home = () => (
       }}
       validationSchema={LoginSchema}
       onSubmit={values => {
-        // same shape as initial values
-        console.log(values);
+      handleLogin(values);
       }}
     >
       {({ errors, touched }) => (
@@ -49,5 +68,5 @@ export const home = () => (
       )}
     </Formik>
   </div>
-);
+)};
 export default home 
