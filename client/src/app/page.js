@@ -1,72 +1,83 @@
-'use client'
+'use client';
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { message } from 'antd';
-import Link from 'next/link';
+import { Breadcrumb, Layout, Menu, theme, Input } from 'antd';
+import { AudioOutlined } from '@ant-design/icons';
+import Image from 'next/image';
 
-const LoginSchema = Yup.object().shape({
-  email: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
- password: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-  email: Yup.string().email('Invalid email').required('Required'),
-});
+const { Search } = Input;
+const { Header, Content, Footer } = Layout;
 
- const home = () => {
-  const [messageApi,contextHolder]=message.useMessage();
-  const handleLogin = async(values) => {
-    const res = await fetch('http://localhost:4000/login', {
-        method:'POST', 
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values)
-      })
-      const data = await res.json()
-        messageApi.open({
-          type: res.status == 200 ? 'success': 'error',
-          content: data.msg,
-        });
-      console.log(res)
-    }
-  
-  
-  return(
-
-  <div>
-    {contextHolder}  
-       <h1>Log In</h1>
-    <Formik
-      initialValues={{
-        email: '',
-        password:'',
+const App = () => {
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+  const suffix = (
+    <AudioOutlined
+      style={{
+        fontSize: 16,
+        color: '#1677ff',
       }}
-      validationSchema={LoginSchema}
-      onSubmit={values => {
-      handleLogin(values);
-      }}
-    >
-      {({ errors, touched }) => (
-        <Form>
-          <Field name="email" placeholder="Email/Username"/>
-          {errors.email && touched.email ? (
-            <div>{errors.email}</div>
-          ) : null}
-          <br/>
-          <Field name="password" placeholder="Password"/>
-          {errors.password && touched.password ? (
-            <div>{errors.password}</div>
-          ) : null}
-          <br/>
-          <button type="submit">Login</button>
-          <br/>
-          Don't have account? <Link href="/register">SignUp</Link>
-        </Form>
-      )}
-    </Formik>
-  </div>
-)};
-export default home 
+    />
+  );
+  const onSearch = (value, _e, info) => console.log(info?.source, value);
+
+  return (
+    <Layout className="layout">
+      <Header
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          backgroundColor: 'white',
+          border: '1px solid black',
+        }}
+      >
+        <div className="demo-logo" />
+        <Image
+          src="/hh.jpeg"
+          width={100}
+          height={100}
+          alt="Picture of the hamro bhansa"
+          style={{ border: '2px solid black', borderRadius: '50%' }}
+        />
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+          <Menu.Item key="1">Login</Menu.Item>
+          <Menu.Item key="2">Signup</Menu.Item>
+        </Menu>
+      </Header>
+      <Content
+        style={{
+          padding: '0 50px',
+        }}
+      >
+        <Breadcrumb
+          style={{
+            margin: '16px 0',
+          }}
+        >
+          <Search
+            placeholder="Enter Your food order"
+            enterButton="Search"
+            size="large"
+            suffix={suffix}
+            onSearch={onSearch}
+          />
+        </Breadcrumb>
+        <div
+          className="site-layout-content"
+          style={{
+            background: '',
+          }}
+        >
+          Content
+        </div>
+      </Content>
+      <Footer
+        style={{
+          textAlign: 'center',
+        }}
+      ></Footer>
+    </Layout>
+  );
+};
+
+export default App;

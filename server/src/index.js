@@ -45,7 +45,7 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   const customerDetails = await customer.findOne({ email: req.body.email });
   if (!customerDetails) {
-    res.status(404).json({ msg: 'Invalid Credentials ' });
+    res.status(401).json({ msg: 'Invalid Credentials ' });
   } else {
     // Compare hashed password
     const isMatched = await bcrypt.compare(
@@ -56,7 +56,7 @@ app.post('/login', async (req, res) => {
     if (isMatched) {
       res.status(200).json({ msg: 'Login success' });
     } else {
-      res.status(404).json({ msg: 'Incorrect match' });
+      res.status(401).json({ msg: 'Incorrect match' });
     }
   }
 });
