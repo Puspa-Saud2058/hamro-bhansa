@@ -56,7 +56,7 @@ const LoginSchema = Yup.object().shape({
             <div>{errors.email}</div>
           ) : null}
           <br/>
-          <Field name="password" placeholder="Password"/>
+          <Field name="password" type="password" placeholder="Password"/>
           {errors.password && touched.password ? (
             <div>{errors.password}</div>
           ) : null}
