@@ -11,7 +11,6 @@ const productSchema = Yup.object().shape({
 
   productName: Yup.string().required('Required'),
   Description:Yup.string().required('Required'),
-  Brand:Yup.string(),
   price:Yup.string(),
   Image:Yup.string(),
   Category:Yup.string()
@@ -41,7 +40,7 @@ export const index = () => {
     <Formik
       initialValues={{
        
-        productName: '',
+        productName : '',
         Description:'',
         price:'',
         Image:'',
