@@ -1,13 +1,24 @@
 'use client';
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { Breadcrumb, Layout, Menu, theme, Input } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
+import Card from './components/Card/page';
 import Image from 'next/image';
-
 const { Search } = Input;
 const { Header, Content, Footer } = Layout;
 
+
 const App = () => {
+const [productList,setProductList]=useState([])
+  const fetchProducts=async()=>{
+  const res=await fetch('http://localhost:4000/product')
+  const data =await res.json()
+  setProductList(data.productList)
+  }
+
+  useEffect(()=>{
+    fetchProducts()
+  },[])
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -32,7 +43,8 @@ const App = () => {
         }}
       >
         <div className="demo-logo" />
-        <Image
+       
+          <Image
           src="/hh.jpeg"
           width={100}
           height={100}
@@ -68,7 +80,11 @@ const App = () => {
             background: '',
           }}
         >
-          Content
+           {productList.length>0 && productList.map((item,id)=>{
+            return(
+              <Card item={item}/>
+            )
+           })}
         </div>
       </Content>
       <Footer
