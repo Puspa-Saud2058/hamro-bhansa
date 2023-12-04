@@ -2,6 +2,7 @@ const express=require('express')
 const router=express.Router()
 const user = require('../models/user');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken'); 
 const saltRounds = 10;
 // Registration Endpoint
 router.post('/register', async (req, res) => {
@@ -40,7 +41,9 @@ router.post('/register', async (req, res) => {
       );
   
       if (isMatched) {
-        res.status(200).json({ msg: 'Login success' });
+        const token = jwt.sign({ email: req.body.email, id: userDetails?._id }, process.env.SECRET_KEY);
+        console.log(token)
+        res.status(200).json({ msg: 'Login success',token });
       } else {
         res.status(401).json({ msg: 'Incorrect match' });
       }

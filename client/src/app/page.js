@@ -78,6 +78,7 @@ const [productList,setProductList]=useState([])
           className="site-layout-content"
           style={{
             background: '',
+            display:'flex'
           }}
         >
            {productList.length>0 && productList.map((item,id)=>{
