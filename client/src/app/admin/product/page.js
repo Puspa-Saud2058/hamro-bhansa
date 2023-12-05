@@ -10,10 +10,10 @@ import {  message } from 'antd';
 const productSchema = Yup.object().shape({
 
   productName: Yup.string().required('Required'),
-  Description:Yup.string().required('Required'),
+  description:Yup.string().required('Required'),
   price:Yup.string(),
-  Image:Yup.string(),
-  Category:Yup.string()
+  image:Yup.string(),
+  category:Yup.string()
 });
 
 export const index = () => {
@@ -41,10 +41,10 @@ export const index = () => {
       initialValues={{
        
         productName : '',
-        Description:'',
+        description:'',
         price:'',
-        Image:'',
-        Category:'', 
+        image:'',
+        category:'', 
       }}
       // validationSchema={SignupSchema}
       onSubmit={values => {
@@ -59,20 +59,20 @@ export const index = () => {
           {errors.productName && touched.productName ? <div>{errors. productName}</div> : null}
           <br />
           <br />
-          <Field name="Description" type="text" placeholder="Enter about your Product "/>
-          {errors.Description && touched.Description? <div>{errors.Description}</div> : null}
+          <Field name="description" as="textarea" placeholder="Enter about your Product "/>
+          {errors.description && touched.description? <div>{errors.description}</div> : null}
           <br />
           <br />
           <Field name="price" type="text" placeholder="Enter your Product price" />
           {errors.price && touched.price ? <div>{errors.price}</div> : null}
           <br />
           <br />
-          <Field name="Image" type="file" placeholder="Enter your  Product Image" />
-          {errors.Image && touched.Image ? <div>{errors.Image}</div> : null}
+          <Field name="image" type="file" placeholder="Enter your  Product Image" />
+          {errors.image && touched.image ? <div>{errors.image}</div> : null}
           <br />
           <br />
-          <Field name="Category" type="text" placeholder="Enter your Product Category" />
-          {errors.Category && touched.Category ? <div>{errors.Category}</div> : null}
+          <Field name="category" type="text" placeholder="Enter your Product Category" />
+          {errors.category && touched.category ? <div>{errors.category}</div> : null}
           <br />
           
           <br />

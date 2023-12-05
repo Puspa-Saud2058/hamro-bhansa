@@ -1,3 +1,4 @@
+'use client '
 import React from 'react';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
@@ -6,9 +7,8 @@ import Link from 'next/link';
 const { Meta } = Card;
 
 function Page(props) {
-  console.log('price:',props.item.price);
   return (
-    <Link href={`/product/${props.item._id}`}>
+    <Link href={`/products/${props.item._id}`}>
     <Card
       style={{
         width: 400,
