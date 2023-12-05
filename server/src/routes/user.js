@@ -41,7 +41,7 @@ router.post('/register', async (req, res) => {
       );
   
       if (isMatched) {
-        const token = jwt.sign({ email: req.body.email, id: userDetails?._id }, process.env.SECRET_KEY);
+        const token = jwt.sign({ email: req.body.email, id: userDetails._id }, process.env.SECRET_KEY);
         console.log(token)
         res.status(200).json({ msg: 'Login success',token });
       } else {

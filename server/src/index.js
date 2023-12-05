@@ -13,7 +13,7 @@ app.use(productRoute)
 console.log(process.env.SECRET_KEY)
 
 // Setting up the Port
-const port = process.env.PORT||5000
+const port = process.env.PORT
 
 // Establishing Database Connection
 connection();
