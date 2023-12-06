@@ -1,4 +1,3 @@
-'use client '
 import React from 'react';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
@@ -8,6 +7,7 @@ const { Meta } = Card;
 
 function Page(props) {
   return (
+    <div>
     <Link href={`/products/${props.item._id}`}>
     <Card
       style={{
@@ -28,6 +28,8 @@ function Page(props) {
       />
     </Card>
     </Link>
+      <p> <button>Add</button></p>
+    </div>
 
   );
 }
