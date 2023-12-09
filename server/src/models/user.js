@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
     type:String,
     enum:['admin','user'],
     default:'user'
-  }
+  },
+  password:String 
    });
 const user=mongoose.model('user',userSchema);
 module.exports=user;
