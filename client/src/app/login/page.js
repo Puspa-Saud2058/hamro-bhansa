@@ -4,7 +4,8 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { message } from 'antd';
 import Link from 'next/link';
-
+import { useDispatch } from 'react-redux';
+import { setLoginDetails } from '../../redux/reducerSlices/userSlice';
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
     .min(2, 'Too Short!')
@@ -18,6 +19,7 @@ const LoginSchema = Yup.object().shape({
 });
 
  const home = () => {
+  const dispatch=useDispatch()
   const [messageApi,contextHolder]=message.useMessage();
   const handleLogin = async(values) => {
     const res = await fetch('http://localhost:4000/login', {
@@ -30,7 +32,9 @@ const LoginSchema = Yup.object().shape({
           type: res.status == 200 ? 'success': 'error',
           content: data.msg,
         });
-      console.log(res)
+      if(res.status==200){
+        dispatch(setLoginDetails(data.userDetails))
+      }
     }
   
   

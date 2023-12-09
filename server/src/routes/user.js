@@ -30,7 +30,7 @@ router.post('/register', async (req, res) => {
   
   // Login Endpoint
   router.post('/login', async (req, res) => {
-    const userDetails = await user.findOne({ email: req.body.email });
+    const userDetails = await user.findOne({ email: req.body.email }).lean();
     if (!userDetails) {
       res.status(401).json({ msg: 'Invalid Credentials ' });
     } else {
@@ -41,9 +41,9 @@ router.post('/register', async (req, res) => {
       );
   
       if (isMatched) {
+        const {password,...userInfo}=userDetails
         const token = jwt.sign({ email: req.body.email, id: userDetails._id }, process.env.SECRET_KEY);
-        console.log(token)
-        res.status(200).json({ msg: 'Login success',token });
+        res.status(200).json({ msg: 'Login success',token ,userDetails:userInfo});
       } else {
         res.status(401).json({ msg: 'Incorrect match' });
       }

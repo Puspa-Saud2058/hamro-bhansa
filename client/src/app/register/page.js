@@ -26,7 +26,11 @@ const SignupSchema = Yup.object().shape({
 });
 
  const Home = () => {
+  
   const [messageApi,contextHolder]=message.useMessage();
+  const saveFile=(e)=>{
+   console.log(e.target.file)
+  }
 const handleRegister = async(values) => {
   const res = await fetch('http://localhost:4000/register', {
       method:'POST', 
@@ -86,6 +90,7 @@ const handleRegister = async(values) => {
             <div>{errors.confirmPassword}</div>
           ) : null}
           <br/>
+          <label>Upload Avatar</label><input type="file" onChange={saveFile}/>
         <button type="submit">Sign Up</button>
         <br/>
         already a member? <Link href="/">Sign In</Link>

@@ -5,11 +5,13 @@ const connection = require('./db/connection');
 const app = express();
 require('dotenv').config()
 const userRoute=require('./routes/user');
+const orderRoute=require('./routes/order');
 const productRoute=require('./routes/product');
 app.use(express.json());
 app.use(cors());
 app.use(userRoute)
 app.use(productRoute)
+app.use(orderRoute)
 console.log(process.env.SECRET_KEY)
 
 // Setting up the Port

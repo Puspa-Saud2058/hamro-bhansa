@@ -2,13 +2,15 @@
 import React,{useState,useEffect} from 'react';
 import { Breadcrumb, Layout, Menu, theme, Input } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
-import Card from './components/Card/page';
+import Card from '../components/Card/page';
 import Image from 'next/image';
+import {useSelector} from 'react-redux';
 const { Search } = Input;
 const { Header, Content, Footer } = Layout;
 
 
 const App = () => {
+  const {age}=useSelector(state=>state.user)
 const [productList,setProductList]=useState([])
 const [searchList,setSearchList]=useState([])
   const fetchProducts=async()=>{
@@ -39,6 +41,7 @@ const [searchList,setSearchList]=useState([])
   };
   return (
     <Layout className="layout">
+      {age}
       <Header
         style={{
           display: 'flex',
@@ -64,13 +67,15 @@ const [searchList,setSearchList]=useState([])
       <Content
         style={{
           padding: '0 50px',
-        }}
-      >
+          background: `url(${'public/burger-black_181624-884.jpg'}}) center/cover no-repeat fixed`,
+           }}
+        >
         <Breadcrumb
           style={{
             margin: '16px 0',
           }}
         >
+          
           <Search
             placeholder="Enter Your food order"
             enterButton="Search"
@@ -78,13 +83,13 @@ const [searchList,setSearchList]=useState([])
             suffix={suffix}
             onSearch={onSearch}
           />
-          {searchList.length > 0 && (
-  <ul>
-    {searchList.map((product) => (
-      <li key={product.id}>{product.productName}</li>
-    ))}
-  </ul>
-)}
+          <div>
+            {searchList.length > 0 && searchList.map((item) => {
+     return <li>{item.productName}</li>
+            })}
+            </div>
+          
+          
 
         </Breadcrumb>
         <div

@@ -10,5 +10,5 @@ const orderSchema = new mongoose.Schema({
     default: 'Admin Approved'
   }
 });
-const Order = mongoose.model('Order', orderSchema);
-module.exports =Order
+const order = mongoose.model('order', orderSchema);
+module.exports =order
