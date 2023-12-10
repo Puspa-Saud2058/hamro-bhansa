@@ -15,6 +15,10 @@ const SignupSchema = Yup.object().shape({
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
+    address: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
     password: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
@@ -23,6 +27,8 @@ const SignupSchema = Yup.object().shape({
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
+    //role: Yup.string()
+    //.required('Required')
 });
 
  const Home = () => {
@@ -80,6 +86,11 @@ const handleRegister = async(values) => {
             <div>{errors.email}</div>
           ) : null}
           <br/>
+          <Field name="address" type="address" placeholder="address" />
+          {errors.address && touched.address ? (
+            <div className='errors'>{errors.address}</div>
+          ) : null}
+          <br/>
           <Field name="password" type="password" placeholder="password" />
           {errors.password && touched.password ? (
             <div>{errors.password}</div>
@@ -90,9 +101,20 @@ const handleRegister = async(values) => {
             <div>{errors.confirmPassword}</div>
           ) : null}
           <br/>
+          <Field component='select' name='role' id='roles' placeholder='Choose your role'>
+            <option disabled >Choose your role</option>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </Field>
+          {errors.role && touched.role ? (
+            <div className='errors'>{errors.role}</div>
+          ) : null}
+          <br/>
           <label>Upload Avatar</label><input type="file" onChange={saveFile}/>
+          <br/>
         <button type="submit">Sign Up</button>
         <br/>
+        
         already a member? <Link href="/">Sign In</Link>
         </Form>
       )}
