@@ -4,11 +4,13 @@ const jwt=require('jsonwebtoken');
 const saltRounds=10;
 
 const registerNewUser=async (req, res) => {
-    try {
+  console.log(req) 
+  try {
+    console.log(req.file.filename)
       // Generate a hash password
       const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
       req.body.password = hashPassword;
-  
+      req.body.avatar = req.file.filename;
       // Check if user/email/phoneNumber doesn't already exist
       const userExists = await user.findOne({ email: req.body.email });
   

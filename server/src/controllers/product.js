@@ -25,4 +25,8 @@ const createProduct=async (req, res) => {
     const data=await Product.find({productName:{$regex:req.query.name}})
      res.json({productList:data})
    }
-  module.exports={createProduct,findProduct,findProductByIds,searchProducts}
+   const getAllProducts=async(req,res)=>{
+    const list= await Product.find()
+    res.json({list})
+   }
+  module.exports={createProduct,findProduct,findProductByIds,searchProducts,getAllProducts}

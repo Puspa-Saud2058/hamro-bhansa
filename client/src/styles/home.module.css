@@ -1,0 +1,31 @@
+.container{
+ 
+    background-image: url('/burger.jpg');
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.search{
+   margin: auto;
+   width: 20vw;
+   height: 10vh;
+   justify-content: center;
+  align-items: center;
+
+}
+.sdiv{
+    margin-top: 50px;
+    margin-left: 250px; 
+    position:fixed;
+}
+.text{
+    margin-top: 50px;
+    margin-left: 15px;
+    color:rgb(219, 241, 243);
+    text-shadow: 0 0 10px rgba(233, 236, 34, 0.5);
+    }
+    .text h4 {
+        color: red;
+      }
+      

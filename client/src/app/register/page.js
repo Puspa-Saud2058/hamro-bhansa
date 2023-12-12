@@ -1,6 +1,5 @@
 'use client'
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Image from 'next/image';
@@ -34,14 +33,21 @@ const SignupSchema = Yup.object().shape({
  const Home = () => {
   
   const [messageApi,contextHolder]=message.useMessage();
-  const saveFile=(e)=>{
-   console.log(e.target.file)
+  const [file,setFile]=useState(null)
+  const saveImage=(e)=>{
+   setFile(e.target.files[0])
   }
 const handleRegister = async(values) => {
+  var formData=new FormData();
+  formData.append('avatar',file)
+
+  Object.entries(values).map((item,id)=>{
+   formData.append(item[0],item[1])
+  })
+
   const res = await fetch('http://localhost:4000/register', {
       method:'POST', 
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values)
+     body: formData
     })
     const data = await res.json()
       messageApi.open({
@@ -110,7 +116,7 @@ const handleRegister = async(values) => {
             <div className='errors'>{errors.role}</div>
           ) : null}
           <br/>
-          <label>Upload Avatar</label><input type="file" onChange={saveFile}/>
+          <label>Upload Avatar</label><input type="file" onChange={saveImage}/>
           <br/>
         <button type="submit">Sign Up</button>
         <br/>

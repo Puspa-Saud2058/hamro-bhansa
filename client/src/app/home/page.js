@@ -3,6 +3,7 @@ import React,{useState,useEffect} from 'react';
 import { Breadcrumb, Layout, Menu, theme, Input } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
 import Card from '../../components/Card/page';
+import styles from '../../styles/home.module.css'
 import Image from 'next/image';
 import {useSelector} from 'react-redux';
 const { Search } = Input;
@@ -48,28 +49,53 @@ const content = (
    
   };
   return (
-    <Layout className="layout">
+    
+    <Layout className={styles.container}>
       <Header
         style={{
           display: 'flex',
           alignItems: 'center',
-          backgroundColor: 'white',
+          backgroundColor: 'black',
           border: '1px solid black',
+          
         }}
       >
-        <div className="demo-logo" />
-       
+         
+          <div className={styles.logo}>
           <Image
           src="/hh.jpeg"
-          width={100}
-          height={100}
+          width={80}
+          height={60}
           alt="Picture of the hamro bhansa"
-          style={{ border: '2px solid black', borderRadius: '50%' }}
+          style={{ border: '2px solid black', 
+          borderRadius: '50%' ,
+          height: 'auto',
+          width: 'auto',
+          marginTop: '25px',
+          marginRight: '850px', 
+         }}
         />
+        </div>
         <Menu 
-        theme="dark" mode="horizontal"
+        theme="dark-black" mode="horizontal"
          
          >
+           <Link href="/home">
+            <Menu.Item key="alipay">
+            Home
+            </Menu.Item>
+            </Link>
+            <Link href="/map">
+            <Menu.Item key="alipay">
+            Location
+            </Menu.Item>
+            </Link>
+            <Link href="/map">
+            <Menu.Item key="alipay">
+            Contact
+            </Menu.Item>
+            </Link>
+          
              <Link href="/login">
             <Menu.Item key="alipay">
             Login
@@ -94,10 +120,10 @@ const content = (
       </div>    
         </Menu>
       </Header>
+      
       <Content
         style={{
           padding: '0 50px',
-          background: `url(${'public/burger-black_181624-884.jpg'}}) center/cover no-repeat fixed`,
            }}
         >
         <Breadcrumb
@@ -105,8 +131,9 @@ const content = (
             margin: '16px 0',
           }}
         >
+
           
-          <Search
+          <Search className={styles.search}
             placeholder="Enter Your food order"
             enterButton="Search"
             size="large"
@@ -119,21 +146,29 @@ const content = (
             })}
             </div>
           
-          
-
-        </Breadcrumb>
-        <div
+            </Breadcrumb>
+          <div
           className="site-layout-content"
           style={{
             background: '',
             display:'flex'
           }}
         >
-           {productList.length>0 && productList.map((item,id)=>{
-            return(
-              <Card item={item}/>
-            )
-           })}
+          <div className={styles.sdiv}>
+          <div className={styles.text}>
+          <h3>Are you hungry</h3>
+          <h1>Don't Wait!</h1>
+          <h4>Let's start to Your Food Now</h4>
+          </div>
+          <div className={styles.button}>
+           <Button type="primary" size="large" style={{ margin: '10px' }}>
+            Order Now
+          </Button>
+          <Button type="default" size="large" style={{ margin: '10px' }}>
+            View Menu
+          </Button>
+          </div>
+        </div>
         </div>
       </Content>
       <Footer
