@@ -5,6 +5,7 @@ import { AudioOutlined } from '@ant-design/icons';
 import Card from '../../components/Card/page';
 import styles from '../../styles/home.module.css'
 import Image from 'next/image';
+import { PiShoppingCartBold } from "react-icons/pi";
 import {useSelector} from 'react-redux';
 const { Search } = Input;
 const { Header, Content, Footer } = Layout;
@@ -12,19 +13,21 @@ import { Avatar, Divider,Tooltip,Button, Popover, ConfigProvider } from 'antd';
 import Link from 'next/link'
 
 const App = () => {
-  const {userDetails}=useSelector(state=>state.user)
-const [productList,setProductList]=useState([])
-const [searchList,setSearchList]=useState([])
+  
+    const {userDetails}=useSelector(state=>state.user)
+  const [productList,setProductList]=useState([])
+  const [searchList,setSearchList]=useState([])
+ 
+
   const fetchProducts=async()=>{
   const res=await fetch('http://localhost:4000/product')
   const data =await res.json()
   setProductList(data.productList)
   }
-
   useEffect(()=>{
     fetchProducts()
   },[])
-  const text = <span>{userDetails.email}</span>;
+    const text = <span>{userDetails.email}</span>;
 const content = (
   <div>
     <Link href="/profile"><span>Profile</span></Link>
@@ -42,6 +45,7 @@ const content = (
       }}
     />
   );
+ 
   const onSearch = async(value, _e, info) => {
    const res=await fetch('http://localhost:4000/search-products?name='+value)
    const data=await res.json()
@@ -72,7 +76,7 @@ const content = (
           height: 'auto',
           width: 'auto',
           marginTop: '25px',
-          marginRight: '850px', 
+          marginRight: '800px', 
          }}
         />
         </div>
@@ -95,7 +99,8 @@ const content = (
             Contact
             </Menu.Item>
             </Link>
-          
+            <PiShoppingCartBold className={styles.cart}/>
+
              <Link href="/login">
             <Menu.Item key="alipay">
             Login
@@ -164,9 +169,11 @@ const content = (
            <Button type="primary" size="large" style={{ margin: '10px' }}>
             Order Now
           </Button>
-          <Button type="default" size="large" style={{ margin: '10px' }}>
+          <Link href="/menu" passHref>
+          <Button  type="default" size="large" style={{ margin: '10px' }}>
             View Menu
           </Button>
+          </Link>
           </div>
         </div>
         </div>
