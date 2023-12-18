@@ -1,25 +1,43 @@
+'use client';
 
-'use client'// Import 'client' should be 'next'
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Breadcrumb, Layout, Pagination } from 'antd';
+import Card from '../../components/Card/page';
 
-function Page({ params }) {
-  const [productDetail, setProductDetail] = useState({});
+const { Content } = Layout;
 
-  const fetchProduct = async () => {
-    const res = await fetch(`http://localhost:4000/products/${params._id}`);
-    const data = await res.json();
-    setProductDetail(data.productList);
-  };
+const App = () => {
+  const [productList, setProductList] = useState([]);
+  const [count, setCount] = useState(0);
+
+  const fetchProducts = async (page = 1) => {
+      const res = await fetch('http://localhost:4000/product?page='+page);
+      const data = await res.json();
+      setProductList(data.productList);
+      setCount(data.totalCount)
+     };
 
   useEffect(() => {
-    fetchProduct();
+    fetchProducts();
   }, []);
 
   return (
-    <>
-      <div>{JSON.stringify(productDetail)} Hello it is page</div>
-    </>
+    <Layout className='layout'>
+      <Breadcrumb style={{ margin: '5px 0' }}></Breadcrumb>
+      <Content>
+        <div className='flex'>
+          {productList.length > 0 &&
+            productList.map((item, id) => (
+              <div key={id}>
+                <Card item={item} />
+              </div>
+            ))}
+        </div>
+      {count}
+        <Pagination onChange={(page) => fetchProducts(page)} defaultCurrent={1} total={count} pageSize={3}/>
+      </Content>
+    </Layout>
   );
-}
+};
 
-export default Page;
+export default App;

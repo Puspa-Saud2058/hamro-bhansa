@@ -14,21 +14,10 @@ import Link from 'next/link'
 
 const App = () => {
   
-    const {userDetails}=useSelector(state=>state.user)
-  const [productList,setProductList]=useState([])
+  const {userDetails}=useSelector(state=>state.user)
   const [searchList,setSearchList]=useState([])
- 
-
-  const fetchProducts=async()=>{
-  const res=await fetch('http://localhost:4000/product')
-  const data =await res.json()
-  setProductList(data.productList)
-  }
-  useEffect(()=>{
-    fetchProducts()
-  },[])
-    const text = <span>{userDetails.email}</span>;
-const content = (
+  const text = <span>{userDetails.email}</span>;
+ const content = (
   <div>
     <Link href="/profile"><span>Profile</span></Link>
     <p>Logout</p>
