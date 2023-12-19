@@ -29,4 +29,12 @@ const createProduct=async (req, res) => {
     const list= await Product.find()
     res.json({list})
    }
-  module.exports={createProduct,findProduct,findProductByIds,searchProducts,getAllProducts}
+   const getPagination=async(req,res)=>{
+    const skipCount=(req.query.page-1)*10
+    const totalCount= await Product.find().count()
+    const data=await Product.find().limit(10).skip(skipCount)
+     if(data){
+      res.json({productList:data,totalCount})
+    }
+  }
+  module.exports={createProduct,findProduct,findProductByIds,searchProducts,getAllProducts,getPagination}

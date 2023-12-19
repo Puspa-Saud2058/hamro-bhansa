@@ -38,6 +38,8 @@ const SignupSchema = Yup.object().shape({
    setFile(e.target.files[0])
   }
 const handleRegister = async(values) => {
+  console.log('Form values:', values);
+
   var formData=new FormData();
   formData.append('avatar',file)
 
