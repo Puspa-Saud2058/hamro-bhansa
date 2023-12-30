@@ -23,17 +23,16 @@ const App = () => {
 
   return (
     <Layout className='layout'>
-      <Breadcrumb style={{ margin: '5px 0' }}></Breadcrumb>
+      <Breadcrumb style={{ height: '0px' }}></Breadcrumb>
       <Content>
         <div className='flex'>
           {productList.length > 0 &&
             productList.map((item, id) => (
               <div key={id}>
                 <Card item={item} />
-              </div>
+              </div> 
             ))}
         </div>
-      {count}
         <Pagination onChange={(page) => fetchProducts(page)} defaultCurrent={1} total={count} pageSize={3}/>
       </Content>
     </Layout>

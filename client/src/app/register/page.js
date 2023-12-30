@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Image from 'next/image';
-import Link from 'next/link'
-import { message } from 'antd';
+import Link from 'next/link';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { message, Upload } from 'antd';
 const SignupSchema = Yup.object().shape({
     fullname: Yup.string()
     .min(2, 'Too Short!')
@@ -30,24 +31,21 @@ const SignupSchema = Yup.object().shape({
     //.required('Required')
 });
 
+
  const Home = () => {
   
   const [messageApi,contextHolder]=message.useMessage();
+
+  const [loading, setLoading] = useState(false);
   const [file,setFile]=useState(null)
-  const saveImage=(e)=>{
-   setFile(e.target.files[0])
-  }
-const handleRegister = async(values) => {
-  console.log('Form values:', values);
 
-  var formData=new FormData();
-  formData.append('avatar',file)
-
-  Object.entries(values).map((item,id)=>{
-   formData.append(item[0],item[1])
-  })
-
-  const res = await fetch('http://localhost:4000/register', {
+  const handleRegister = async(values) => {
+    var formData = new FormData();
+    formData.append('avatar', file) 
+    Object.entries(values).map((item,id)=>{
+      formData.append(item[0], item[1]) 
+     });
+     const res = await fetch('http://localhost:4000/register', {
       method:'POST', 
      body: formData
     })
@@ -57,24 +55,24 @@ const handleRegister = async(values) => {
         content: data.msg,
       });
     console.log(res)
-  }
-  return(
+}
 
+  const saveImage=(e)=>{
+   setFile(e.target.files[0])
+  }
+    
+  return(
   <div>
-    <Image
-      src="/hh.jpeg"
-      width={100}
-      height={100}
-      alt="Picture of the hamro bhansa"
-      style={{ border: '2px solid black', borderRadius: '50%' }}
-    />
-    <h1>Sign Up</h1>
+   <h1>Sign Up</h1>
     <Formik
       initialValues={{
         fullname:'',
+        phoneNumber:'',
         email:'',
+        address:'',
         password: '',
-        confirmPassword:'',       
+        confirmPassword:'', 
+        role:''      
       }}
       validationSchema={SignupSchema}
       onSubmit={values => {
@@ -92,6 +90,11 @@ const handleRegister = async(values) => {
           <Field name="email" type="email" placeholder="email" />
           {errors.email && touched.email ? (
             <div>{errors.email}</div>
+          ) : null}
+          <br/>
+          <Field name="phoneNumber" type="text" placeholder="Phone no." />
+          {errors.ephoneNumber&& touched.phoneNumber? (
+            <div>{errors.phoneNumber}</div>
           ) : null}
           <br/>
           <Field name="address" type="address" placeholder="address" />
@@ -118,8 +121,9 @@ const handleRegister = async(values) => {
             <div className='errors'>{errors.role}</div>
           ) : null}
           <br/>
-          <label>Upload Avatar</label><input type="file" onChange={saveImage}/>
           <br/>
+          <input type='file' onChange={saveImage}/>
+           <br/>
         <button type="submit">Sign Up</button>
         <br/>
         

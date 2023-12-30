@@ -155,11 +155,13 @@ const App = () => {
           <h4>Let's start to Your Food Now</h4>
           </div>
           <div className={styles.button}>
-           <Button type="primary" size="large" style={{ margin: '10px' }}>
+          <Link href="/categories" passHref>
+           <Button type="default" size="large" style={{ margin: '10px' }}>
             Order Now
           </Button>
+          </Link>
           <Link href="/menu" passHref>
-          <Button  type="default" size="large" style={{ margin: '10px' }}>
+          <Button  type="primary" size="large" style={{ margin: '10px' }}>
             View Menu
           </Button>
           </Link>

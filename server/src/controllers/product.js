@@ -30,9 +30,9 @@ const createProduct=async (req, res) => {
     res.json({list})
    }
    const getPagination=async(req,res)=>{
-    const skipCount=(req.query.page-1)*10
+    const skipCount=(req.query.page-1)*4
     const totalCount= await Product.find().count()
-    const data=await Product.find().limit(10).skip(skipCount)
+    const data=await Product.find().limit(4).skip(skipCount)
      if(data){
       res.json({productList:data,totalCount})
     }

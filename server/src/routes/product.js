@@ -6,6 +6,6 @@ router.use(express.json());
 router.post('/product',createProduct)
 router.get('/products/:id',findProductByIds)
 router.get('/search-products' ,searchProducts)
-router.get('/search-products' ,getPagination)
+router.get('/product' ,getPagination)
 
   module.exports=router;
