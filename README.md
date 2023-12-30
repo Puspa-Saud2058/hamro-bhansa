@@ -4,7 +4,7 @@ Hamro-Bhansa food ordering app allows users to view menus, place orders, and hav
 
 #The project is built With following libraries and frameworks.
 <li>Next</li>
-Redux
-Node
-Express
-MongoDb
+<li>Redux</li>
+<li>Node</li>
+<li>Express</li>
+<li>MongoDb</li>
