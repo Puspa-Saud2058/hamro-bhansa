@@ -27,8 +27,8 @@ const SignupSchema = Yup.object().shape({
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
-    //role: Yup.string()
-    //.required('Required')
+    role: Yup.string()
+    .required('Required')
 });
 
 

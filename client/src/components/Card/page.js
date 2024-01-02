@@ -17,7 +17,7 @@ function Page(props) {
       cover={
         <img
           alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+          src=""
         />
       }
          >

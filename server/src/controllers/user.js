@@ -2,25 +2,24 @@ const user=require('../models/user')
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const saltRounds=10;
+const path = require('path')
 
 const registerNewUser=async (req, res) => {
-  console.log(req) 
   try {
     console.log(req.file.filename)
+      // Check if user/email/phoneNumber doesn't already exist
+      const userExists = await user.findOne({ email: req.body.email });
+      if (userExists) {
+        res.status(409).json({ msg: 'Email already exists' });
+      } else {      
       // Generate a hash password
       const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
       req.body.password = hashPassword;
       req.body.avatar = req.file.filename;
-      // Check if user/email/phoneNumber doesn't already exist
-      const userExists = await user.findOne({ email: req.body.email });
-  
-      if (userExists) {
-        res.status(409).json({ msg: 'Email already exists' });
-      } else {
+       
         // Create a new user with a hashed password
         const data = await user.create(req.body);
-  
-        if (data) res.json({ msg: 'user registered! Please login' });
+          if (data) res.json({ msg: 'user registered! Please login' });
       }
     } catch (err) {
       // Handle errors
@@ -47,4 +46,9 @@ const registerNewUser=async (req, res) => {
       }
     }
   }
+  const getAllUsers = async (req,res)=>{
+    const list = await  User.find()
+    res.json({list})
+  }
+
   module.exports={registerNewUser,loginUser}

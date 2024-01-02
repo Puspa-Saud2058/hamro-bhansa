@@ -1,9 +1,8 @@
 const  Product= require('../models/product');
-const { findProductById, searchProduct } = require('../controllers/product');
 const { search } = require('./user');
 
-
 const createProduct=async (req, res) => {
+    req.body.avatar = req.file.filename
     const data = await Product.create(req.body);
         if(data){
         res.json({msg:`${req.body.productName} has been created`});
@@ -29,6 +28,7 @@ const createProduct=async (req, res) => {
     const list= await Product.find()
     res.json({list})
    }
+
    const getPagination=async(req,res)=>{
     const skipCount=(req.query.page-1)*4
     const totalCount= await Product.find().count()
@@ -36,5 +36,5 @@ const createProduct=async (req, res) => {
      if(data){
       res.json({productList:data,totalCount})
     }
-  }
-  module.exports={createProduct,findProduct,findProductByIds,searchProducts,getAllProducts,getPagination}
+     }     
+      module.exports={createProduct,findProduct,findProductByIds,searchProducts,getAllProducts,getPagination}

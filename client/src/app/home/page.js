@@ -2,14 +2,13 @@
 import React,{useState,useEffect} from 'react';
 import { Breadcrumb, Layout, Menu, theme, Input } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
-import Card from '../../components/Card/page';
 import styles from '../../styles/home.module.css'
 import Image from 'next/image';
 import { PiShoppingCartBold } from "react-icons/pi";
 import {useSelector} from 'react-redux';
 const { Search } = Input;
 const { Header, Content, Footer } = Layout;
-import { Avatar, Divider,Tooltip,Button, Popover, ConfigProvider } from 'antd';
+import { Avatar,Button, Popover } from 'antd';
 import Link from 'next/link'
 
 const App = () => {

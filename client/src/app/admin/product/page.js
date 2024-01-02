@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
@@ -17,12 +17,20 @@ const productSchema = Yup.object().shape({
 });
 
 export const index = () => {
+  const[file,setFile]=useState(null)
   const [messageApi, contextHolder] = message.useMessage();
+  const [categoryList, setCategoryList] = useState({})
+  
   const productHandle = async(values) => {
+    var formData = new FormData();
+    formData.append('image', file)
+
+    Object.entries(values).map((item,id)=>{
+      formData.append(item[0], item[1]) 
+     });
     const res = await fetch('http://localhost:4000/product', {
         method:'POST', 
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values)
+        body: formData
       })
       const data = await res.json()
         messageApi.open({
@@ -31,7 +39,11 @@ export const index = () => {
         });
       console.log(res)
     } 
-  
+   
+  const saveImage=(e)=>{
+   setFile(e.target.files[0])
+  }
+    
   return(
   <div className='form'>
     <h1>Product Information</h1>
