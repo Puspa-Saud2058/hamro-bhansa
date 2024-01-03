@@ -79,7 +79,7 @@ export const index = () => {
           {errors.price && touched.price ? <div>{errors.price}</div> : null}
           <br />
           <br />
-          <Field name="image" type="file" placeholder="Enter your  Product Image" />
+          <input onChange={saveImage} name="image" type="file" placeholder="Enter your  Product Image" />
           {errors.image && touched.image ? <div>{errors.image}</div> : null}
           <br />
           <br />

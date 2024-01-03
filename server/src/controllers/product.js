@@ -2,11 +2,12 @@ const  Product= require('../models/product');
 const { search } = require('./user');
 
 const createProduct=async (req, res) => {
-    req.body.avatar = req.file.filename
-    const data = await Product.create(req.body);
-        if(data){
-        res.json({msg:`${req.body.productName} has been created`});
-      }
+     req.body.image = req.file.filename
+     const data = await Product.create(req.body);
+         if(data){
+         res.json({msg:`${req.body.productName} has been created`});
+       }
+   
   }
   const findProduct=async (req, res) => {
     const data = await Product.find();

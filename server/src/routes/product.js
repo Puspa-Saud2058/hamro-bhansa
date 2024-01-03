@@ -8,10 +8,9 @@ const Product=require('../models/product')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/image/')
+    cb(null, 'uploads/image')
   },
   filename: function (req, file, cb) {
-   
     const uniqueSuffix = Math.ceil(Math.random()*4000)
     cb(null,  uniqueSuffix+file.originalname )
   }
