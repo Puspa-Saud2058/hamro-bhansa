@@ -37,5 +37,22 @@ const createProduct=async (req, res) => {
      if(data){
       res.json({productList:data,totalCount})
     }
-     }     
-      module.exports={createProduct,findProduct,findProductByIds,searchProducts,getAllProducts,getPagination}
+         }     
+         const getAllProduct = async (req,res)=>{
+          const list = await  Product.findById()
+          res.json({list})
+        }
+      
+      const getProductImageById=async(req,res)=>{   
+        console.log(__dirname)
+      const productDetail= await product.findById(req.query.productId)
+      console.log(productDetail)
+      if(productDetail?.image){
+       const imgPath = path.join(__dirname + '/../../uploads/image/',productDetail.image)
+        res.sendFile(imgPath)
+      }else{
+        const imgPath = path.join(__dirname + '/../../uploads/image/','default.jpg')
+        res.sendFile(imgPath)
+      }
+      }
+      module.exports={createProduct,findProduct,findProductByIds,searchProducts,getAllProducts,getPagination,getProductImageById,getAllProduct}

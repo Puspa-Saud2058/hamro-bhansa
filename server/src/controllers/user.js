@@ -46,9 +46,22 @@ const registerNewUser=async (req, res) => {
       }
     }
   }
+
   const getAllUsers = async (req,res)=>{
-    const list = await  User.find()
+    const list = await  user.find()
     res.json({list})
   }
+ 
+const getUserImageById=async(req,res)=>{
+     const userDetails= await user.findById(req.query.userId)
+     if(userDetails?.avatar){
+      const imgPath=path.join(__dirname ,'/../../uploads/avatars/',userDetails.avatar)
+     res.sendFile(imgPath)
+     }else{
+      const imgPath=path.join(__dirname ,'/../../uploads/avatars/','default.jpg')
+      res.sendFile(imgPath)
+     }
+     
+}
 
-  module.exports={registerNewUser,loginUser}
+  module.exports={registerNewUser,loginUser,getAllUsers,getUserImageById}

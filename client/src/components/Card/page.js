@@ -15,11 +15,14 @@ function Page(props) {
         margin:10
       }}
       cover={
+        
+       
         <img
           alt="example"
-          src=""
+          src={`http://localhost:4000/Product-image?productId=${props.item._id}`}
         />
       }
+      
          >
       <Meta
       

@@ -1,6 +1,6 @@
 const express=require('express')
 const router=express.Router()
-const {registerNewUser,loginUser}=require('../controllers/user')
+const {registerNewUser,getAllUsers,loginUser,getUserImageById}=require('../controllers/user')
 const multer=require('multer')
 
 const storage = multer.diskStorage({
@@ -20,5 +20,7 @@ router.post('/register',upload.single('avatar'),registerNewUser)
   
   // Login Endpoint
   router.post('/login',loginUser)
- // router.get('/products',getAllProducts)
+  router.post('/user',getAllUsers)
+  router.post('/user-avatars',getUserImageById)
+
   module.exports=router;
