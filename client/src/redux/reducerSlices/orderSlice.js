@@ -1,22 +1,50 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userDetails: {},
-  isLoggedIn:false,
+  orderDetails: {},
+  senderLocDetails: {
+    senderCoords: {
+      lat: 27.7172,
+      lng: 85.3240
+    }
+  },
+  receiverLocDetails: {
+    receiverCoords: {
+      lat: 27.7172,
+      lng: 85.3240
+    }
+  },
+
 };
 
-const userSlice = createSlice({
-  name: "user",
+const orderSlice = createSlice({
+  name: "order",
   initialState,
   reducers: {
-    setLoginDetails: (state, actions) => {
-      state.count = state.count + 1;
+    setOrderDetails: (state, actions) => {
+    state.orderDetails = actions.payload
     },
-    handleLogout: (state) => {
-      state.count = state.count - 1;
-    },
+    setSenderLocDetails: (state,actions) => {
+          return{
+            ...state,
+            senderLocDetails: {...state.senderLocDetails, ...actions.payload}
+        }
+      },
+      setReceiverLocDetails: (state,actions) => {
+        return{
+            ...state,
+            receiverLocDetails: {...state.receiverLocDetails, ...actions.payload}
+        }
+        },
+        setSenderPosition: (state,actions) => {
+          state.senderLocDetails.senderCoords = actions.payload
+        },
+          setReceiverPosition: (state,actions) => {
+            state.receiverLocDetails.receiverCoords = actions.payload
+            },
+        
   }
 });
 
-export const { setLoginDetails, handleLogout } = userSlice.actions;
-export default userSlice.reducer;
+export const { setOrderDetails ,setSenderLocDetails,setReceiverLocDetails,setSenderPosition, setReceiverPosition} = orderSlice.actions;
+export default orderSlice.reducer;

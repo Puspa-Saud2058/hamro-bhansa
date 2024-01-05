@@ -24,6 +24,6 @@ router.get('/products/:id',findProductByIds)
 router.get('/search-products' ,searchProducts)
 router.get('/product' ,getPagination)
 router.post('/product',getAllProduct)
-router.post('/product-image',getProductImageById)
+router.get('/product-image',getProductImageById)
 
   module.exports=router;

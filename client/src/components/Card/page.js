@@ -19,13 +19,11 @@ function Page(props) {
        
         <img
           alt="example"
-          src={`http://localhost:4000/Product-image?productId=${props.item._id}`}
+          src={`http://localhost:4000/product-image?productId=${props.item._id}`}
         />
-      }
-      
+      }      
          >
-      <Meta
-      
+      <Meta      
         title={props.item.productName}
         description={props.item.price}
       />

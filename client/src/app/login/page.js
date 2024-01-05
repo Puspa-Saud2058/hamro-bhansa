@@ -1,13 +1,15 @@
 'use client'
 import React from 'react';
-import { Formik,Field } from 'formik';
+import { Formik,Field,Form } from 'formik';
+import Image from 'next/image';
 import * as Yup from 'yup';
 import { message } from 'antd';
 import {useRouter} from 'next/navigation'
 import { useDispatch } from 'react-redux';
 import Link from 'next/link';
-import { Button, Checkbox, Form, Input } from 'antd';
 import { setLoginDetails } from '../../redux/reducerSlices/userSlice';
+
+
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
     .min(2, 'Too Short!')
@@ -19,18 +21,12 @@ const LoginSchema = Yup.object().shape({
     .required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
 });
-const onFinish = (values) => {
-  console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
 
  const home = () => {
-  const dispatch=useDispatch()
   const router=useRouter()
+  const dispatch=useDispatch()
   const [messageApi,contextHolder]=message.useMessage();
-  const onFinish = async(values) => {
+  const handleLogin = async(values) => {
     const res = await fetch('http://localhost:4000/login', {
         method:'POST', 
         headers: { 'Content-Type': 'application/json' },
@@ -52,7 +48,7 @@ const onFinishFailed = (errorInfo) => {
   <div>
     {contextHolder}  
        <h1>Log In</h1>
-    {/* <Formik
+     <Formik
       initialValues={{
         email: '',
         password:'',
@@ -79,75 +75,7 @@ const onFinishFailed = (errorInfo) => {
           Don't have account? <Link href="/register">SignUp</Link>
         </Form>
       )}
-    </Formik> */}
-  <Form
-    name="basic"
-    labelCol={{
-      span: 8,
-    }}
-    wrapperCol={{
-      span: 16,
-    }}
-    style={{
-      maxWidth: 600,
-    }}
-    initialValues={{
-      remember: true,
-    }}
-    onFinish={onFinish}
-    onFinishFailed={onFinishFailed}
-    autoComplete="off"
-  >
-    <Form.Item
-      label="Username"
-      name="username"
-      rules={[
-        {
-          required: true,
-          message: 'Please input your username!',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-
-    <Form.Item
-      label="Password"
-      name="password"
-      rules={[
-        {
-          required: true,
-          message: 'Please input your password!',
-        },
-      ]}
-    >
-      <Input.Password />
-    </Form.Item>
-
-    <Form.Item
-      name="remember"
-      valuePropName="checked"
-      wrapperCol={{
-        offset: 8,
-        span: 16,
-      }}
-    >
-      <Checkbox>Remember me</Checkbox>
-    </Form.Item>
-
-    <Form.Item
-      wrapperCol={{
-        offset: 8,
-        span: 16,
-      }}
-    >
-      <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-      <br/>
-          Don't have account? <Link href="/register">SignUp</Link>
-    </Form.Item>
-  </Form>
+    </Formik> 
   </div>
 )};
 export default home 

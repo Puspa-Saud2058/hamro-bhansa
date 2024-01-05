@@ -1,6 +1,6 @@
 const  Product= require('../models/product');
 const { search } = require('./user');
-
+const path=require ('path')
 const createProduct=async (req, res) => {
      req.body.image = req.file.filename
      const data = await Product.create(req.body);
@@ -31,9 +31,9 @@ const createProduct=async (req, res) => {
    }
 
    const getPagination=async(req,res)=>{
-    const skipCount=(req.query.page-1)*4
     const totalCount= await Product.find().count()
-    const data=await Product.find().limit(4).skip(skipCount)
+    const skipCount=(req.query.page-1)*3
+    const data=await Product.find().limit(3).skip(skipCount)
      if(data){
       res.json({productList:data,totalCount})
     }
@@ -45,13 +45,13 @@ const createProduct=async (req, res) => {
       
       const getProductImageById=async(req,res)=>{   
         console.log(__dirname)
-      const productDetail= await product.findById(req.query.productId)
-      console.log(productDetail)
-      if(productDetail?.image){
-       const imgPath = path.join(__dirname + '/../../uploads/image/',productDetail.image)
+      const productDetails= await Product.findById(req.query.productId)
+      console.log(productDetails)
+      if(productDetails?.image){
+       const imgPath = path.join(__dirname +'/../../uploads/image/',productDetails.image)
         res.sendFile(imgPath)
       }else{
-        const imgPath = path.join(__dirname + '/../../uploads/image/','default.jpg')
+        const imgPath = path.join(__dirname+'/../../uploads/image/','default.jpg')
         res.sendFile(imgPath)
       }
       }

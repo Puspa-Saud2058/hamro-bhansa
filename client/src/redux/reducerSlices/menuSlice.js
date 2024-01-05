@@ -8,9 +8,6 @@ const menuSlice = createSlice({
   name: "menu",
   initialState,
   reducers: {
-    productDetails: (state, actions) => {
-        productDetails:actions.payload,
-    },
      }
 });
 
