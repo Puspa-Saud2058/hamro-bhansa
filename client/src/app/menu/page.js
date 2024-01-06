@@ -27,11 +27,14 @@ const App = () => {
       <Content>
         <div className='flex'>
           {productList.length > 0 &&
-            productList.map((item, id) => (
+            productList.map((item, id) => {
+              return(
               <div key={id}>
                 <Card item={item} />
-              </div> 
-            ))}
+           
+              </div>
+              )
+            })}
         </div>
         <Pagination onChange={(page) => fetchProducts(page)} defaultCurrent={1} total={count} pageSize={3}/>
       </Content>

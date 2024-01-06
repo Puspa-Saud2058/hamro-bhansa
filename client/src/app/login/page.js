@@ -4,10 +4,16 @@ import { Formik,Field,Form } from 'formik';
 import Image from 'next/image';
 import * as Yup from 'yup';
 import { message } from 'antd';
+
+import FacebookIcon from '@mui/icons-material/Facebook';
+import GoogleIcon from '@mui/icons-material/Google';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+
 import {useRouter} from 'next/navigation'
 import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 import { setLoginDetails } from '../../redux/reducerSlices/userSlice';
+import styles from '../../styles/login.module.css'
 
 
 const LoginSchema = Yup.object().shape({
@@ -23,8 +29,8 @@ const LoginSchema = Yup.object().shape({
 });
 
  const home = () => {
-  const router=useRouter()
   const dispatch=useDispatch()
+  const router=useRouter()  
   const [messageApi,contextHolder]=message.useMessage();
   const handleLogin = async(values) => {
     const res = await fetch('http://localhost:4000/login', {
@@ -47,7 +53,7 @@ const LoginSchema = Yup.object().shape({
 
   <div>
     {contextHolder}  
-       <h1>Log In</h1>
+       <h1 className={styles.h1}>Log In</h1>
      <Formik
       initialValues={{
         email: '',
@@ -59,23 +65,46 @@ const LoginSchema = Yup.object().shape({
       }}
     >
       {({ errors, touched }) => (
-        <Form>
-          <Field name="email" placeholder="Email/Username"/>
+       
+        <Form className={styles.form}>
+          <span className={styles.span}>Email</span>
+          <br/>
+          <Field className={styles.field} name="email" type="email"/>
           {errors.email && touched.email ? (
             <div>{errors.email}</div>
           ) : null}
           <br/>
-          <Field name="password" type="password" placeholder="Password"/>
+          <span className={styles.span}>Password</span>
+          <br/>
+          <Field className={styles.field} name="password" type="password"/>
           {errors.password && touched.password ? (
             <div>{errors.password}</div>
           ) : null}
           <br/>
-          <button type="submit">Login</button>
+           <input type="checkbox" name="remember"/> Remember Me
           <br/>
-          Don't have account? <Link href="/register">SignUp</Link>
+          <button className={styles.button}type="submit">LOGIN</button>
+
+          <Link href="/profile/change-password"><span className={styles.span1}>Forget Password?</span></Link>        
+           <hr data-content="OR"/>
+           <div className={styles.icons}>
+           <Link href="https://www.facebook.com">
+           <FacebookIcon className={styles.fb}/>
+           </Link>
+           <Link href="https://www.google.com">
+            <GoogleIcon className={styles.google}/> 
+          </Link>
+          <Link href="https://www.linkedin.com"  rel="noopener noreferrer">
+          <LinkedInIcon className={styles.link}/>
+          </Link>
+           </div>
+           <br/>
+          <span className={styles.do}>Don't have account? <Link href="/register">SignUp</Link></span> 
         </Form>
+       
       )}
+   
     </Formik> 
-  </div>
+    </div>
 )};
 export default home 

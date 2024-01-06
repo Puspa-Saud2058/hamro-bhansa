@@ -16,7 +16,8 @@ function page({params}) {
     <div class="container px-5 py-24 mx-auto flex flex-col">
       <div class="lg:w-4/6 mx-auto">
         <div class="rounded-lg h-64 overflow-hidden">
-          <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1200x500"/>
+          <img alt="content" class="object-cover object-center h-full w-full" src={`http://localhost:4000/uploads/image?productId=${productDetail._id}`}
+/>
         </div>
         <div class="flex flex-col sm:flex-row mt-10">
           <div class="sm:w-1/3 text-center sm:pr-8 sm:py-8">

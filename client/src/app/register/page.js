@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
+import styles from '../../styles/register.module.css'
 const SignupSchema = Yup.object().shape({
     fullname: Yup.string()
     .min(2, 'Too Short!')
@@ -63,7 +64,7 @@ const SignupSchema = Yup.object().shape({
     
   return(
   <div>
-   <h1>Sign Up</h1>
+   <h1 className={styles.h1}>Sign Up</h1>
     <Formik
       initialValues={{
         fullname:'',
@@ -81,38 +82,38 @@ const SignupSchema = Yup.object().shape({
       }}
     >
       {({ errors, touched }) => (
-        <Form>
-            <Field name="fullname" type="text" placeholder="Fullname" />
+        <Form className={styles.form}>
+            <Field className={styles.input} name="fullname" type="text" placeholder="Fullname" />
           {errors.fullname && touched.fullname ? (
             <div>{errors.fullname}</div>
           ) : null}
          <br/>
-          <Field name="email" type="email" placeholder="email" />
+          <Field className={styles.input}  name="email" type="email" placeholder="email" />
           {errors.email && touched.email ? (
             <div>{errors.email}</div>
           ) : null}
           <br/>
-          <Field name="phoneNumber" type="text" placeholder="Phone no." />
+          <Field className={styles.input}  name="phoneNumber" type="text" placeholder="Phone no." />
           {errors.ephoneNumber&& touched.phoneNumber? (
             <div>{errors.phoneNumber}</div>
           ) : null}
           <br/>
-          <Field name="address" type="address" placeholder="address" />
+          <Field className={styles.input}  name="address" type="address" placeholder="address" />
           {errors.address && touched.address ? (
             <div className='errors'>{errors.address}</div>
           ) : null}
           <br/>
-          <Field name="password" type="password" placeholder="password" />
+          <Field className={styles.input}  name="password" type="password" placeholder="password" />
           {errors.password && touched.password ? (
             <div>{errors.password}</div>
           ) : null}
           <br/>
-           <Field name="confirmPassword" type="password" placeholder="ConfirmPassword" />
+           <Field className={styles.input}  name="confirmPassword" type="password" placeholder="ConfirmPassword" />
           {errors.confirmPassword && touched.confirmPassword ? (
             <div>{errors.confirmPassword}</div>
           ) : null}
           <br/>
-          <Field component='select' name='role' id='roles' placeholder='Choose your role'>
+          <Field  className={styles.input} component='select' name='role' id='roles' placeholder='Choose your role'>
             <option disabled >Choose your role</option>
             <option value="user">User</option>
             <option value="admin">Admin</option>
@@ -121,10 +122,9 @@ const SignupSchema = Yup.object().shape({
             <div className='errors'>{errors.role}</div>
           ) : null}
           <br/>
-          <br/>
           <input type='file' onChange={saveImage}/>
            <br/>
-        <button type="submit">Sign Up</button>
+        <button className={styles.button}  type="submit">Sign Up</button>
         <br/>
         
         already a member? <Link href="/">Sign In</Link>
