@@ -33,7 +33,7 @@ const createProduct=async (req, res) => {
    const getPagination=async(req,res)=>{
     const totalCount= await Product.find().count()
     const skipCount=(req.query.page-1)*3
-    const data=await Product.find().limit(4).skip(skipCount)
+    const data=await Product.find().limit(3).skip(skipCount)
      if(data){
       res.json({productList:data,totalCount})
     }
