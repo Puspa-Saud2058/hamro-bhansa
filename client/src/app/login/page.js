@@ -85,7 +85,7 @@ const LoginSchema = Yup.object().shape({
           <br/>
           <button className={styles.button}type="submit">LOGIN</button>
 
-          <Link href="/profile/change-password"><span className={styles.span1}>Forget Password?</span></Link>        
+          <Link href="/user/forget-password"><span className={styles.span1}>Forget Password?</span></Link>        
            <hr data-content="OR"/>
            <div className={styles.icons}>
            <Link href="https://www.facebook.com">

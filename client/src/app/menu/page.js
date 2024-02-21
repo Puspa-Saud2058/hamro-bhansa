@@ -10,8 +10,8 @@ const App = () => {
   const [productList, setProductList] = useState([]);
   const [count, setCount] = useState(0);
 
-  const fetchProducts = async (page = 1) => {
-      const res = await fetch('http://localhost:4000/product');
+  const fetchProducts = async (page= 1) => {
+      const res = await fetch('http://localhost:4000/product?page='+page);
       const data = await res.json();
       setProductList(data.productList);
       setCount(data.totalCount)
