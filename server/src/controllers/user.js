@@ -1,4 +1,5 @@
 const user=require('../models/user')
+//const opt=require('../models/opt')
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const saltRounds=10;
@@ -63,5 +64,40 @@ const getUserImageById=async(req,res)=>{
      }
      
 }
+const changePassword = async (req,res)=>{
+  //1. check if phoneNumber exists
+ 
+  const userDetail = await User.findById(req.query.userId).select('+password')
+  
+  const isMatched = await bcrypt.compare(req.body.oldPassword, userDetail.password)
+  if(isMatched){
+    const hashPassword = await bcrypt.hash(req.body.newPassword, saltRounds)
+    await user.findByIdAndUpdate(req.query.userId, {password: hashPassword})
+     
+      res.json({msg :'Password Changed'})
+    }else{
+      res.status(401).json({msg :'Incorrect password'})
+    }
+  }
 
-  module.exports={registerNewUser,loginUser,getAllUsers,getUserImageById}
+const emailSend=async(req,res)=>{
+  let data=await user.findOne({email:req.body.email})
+  const responseType={};
+  if(data){
+    let otpcode=Math.floor((Math.random()*10000)+1);
+    let optData=new otpcode({
+      email:req.body.email,
+      code:otpcode,
+      expireIn:new Date().getTime()+300*1000
+    })
+    let otpResponse= await optData.save();
+    responseType.statusText='Success'
+    responseType.message='Please check your email id'
+  }else{
+    responseType.statusText='Error'
+    responseType.message='Email d not exist'
+  }
+  
+  res.status(200).json(responseType);
+}
+  module.exports={registerNewUser,loginUser,getAllUsers,getUserImageById,changePassword,emailSend}
