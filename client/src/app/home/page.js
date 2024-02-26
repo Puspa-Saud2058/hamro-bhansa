@@ -135,7 +135,7 @@ const App = () => {
           />
           <div>
             {searchList.length > 0 && searchList.map((item) => {
-     return <li>{item.productName}</li>
+     return <ul><li>{item.productName}</li></ul>
             })}
             </div>
           

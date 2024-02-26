@@ -1,11 +1,13 @@
 import React from 'react'
 
-function page() {
+const Footer = () => {
   return (
     <div className='footer'>
-      Hamro-Bhansa ©2023
+     <span>&copy; 2023, hamrobhansa.com, All rights reserved.</span>
+     <span>Helping millions of customer over nepal and worldwide</span>
+     <span>Contact:+977 9842454942, Tel:078-545160 , Email:support@hamrobhansa.com</span>
     </div>
   )
 }
 
-export default page
+export default Footer
