@@ -168,13 +168,7 @@ const App = () => {
         </div>
         </div>
       </Content>
-      <Footer
-        style={{
-          textAlign: 'center',
-        }}
-        Hamro-bhansa-2023
-      ></Footer>
-    </Layout>
+      </Layout>
   );
 };
 
